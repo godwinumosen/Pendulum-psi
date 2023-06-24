@@ -11,7 +11,7 @@
     </div>
     <div class="row center">
         <br>
-        <a class="btn-large orange" href="{% url 'categories' %}">Courses</a>
+        <a class="btn-large light-blue" href="{% url 'categories' %}">Courses</a>
     </div>
 </div>
 
@@ -25,7 +25,7 @@
 
 <div class="row">
 {% for course in courses %}
-<div class="col s10 m5">
+<div class="col s10 m4">
   <div class="card">
     <div class="card-image waves-effect waves-block waves-light">
       <img class="activator" src="{{ course.picture.url }}">
