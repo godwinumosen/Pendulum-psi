@@ -30,7 +30,7 @@ class Course(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=300)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    syllabus = RichTextField()
+    syllabus = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='course_owner')
     enrolled = models.ManyToManyField(User)
     

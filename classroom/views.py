@@ -9,10 +9,10 @@ from classroom.forms import NewCourseForm
 
 def index (request):
     user = request.user
-    course = Course.objects.filter(enrolled=user)
+    courses = Course.objects.filter(enrolled=user)
     
     context = {
-        'course':course
+        'courses':courses
     }
     return render(request, 'index.html',context)
 
@@ -35,8 +35,6 @@ def CategoryCourses(request, category_slug):
     return render(request, 'classroom/categorycourses.html',context)
 
 
-
-
 def NewCourse(request):
     user = request.user
     if request.method == 'POST':
@@ -55,7 +53,22 @@ def NewCourse(request):
         'form':form
     }
     return render(request, 'classroom/newcourse.html',context)
+    
+@login_required
+def CourseDetail(request, course_id):    
+    user = request.user
+    course = get_object_or_404(Course ,id=course_id)
+    teacher_mode = False
+    
+    if user == course.user:
+        teacher_mode = True
         
+    context = {
+        'course':course,
+        'teacher_mode':teacher_mode,
+    }
+    return render(request, 'classroom/course.html', context)
+    
 @login_required
 def Enroll (request, course_id):
     user = request.user
@@ -104,9 +117,9 @@ def EditCourse(request, course_id):
             
 def MyCourses (request):
     user = request.user
-    course = Course.objects.filter(user=user)
+    courses = Course.objects.filter(user=user)
     context = {
-        'course':course
+        'courses':courses
     }
     return render(request, 'classroom/mycourses.html',context)
             
