@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 import uuid
+from module.models import Module
 # Create your models here.
 
 
@@ -33,6 +34,7 @@ class Course(models.Model):
     syllabus = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='course_owner')
     enrolled = models.ManyToManyField(User)
+    modules = models.ManyToManyField(Module)
     
     def __str__(self) -> str:
         return self.title
